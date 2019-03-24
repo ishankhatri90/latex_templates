@@ -1,0 +1,220 @@
+% Set the document class 
+%\documentclass{beamer}[10pt]
+
+%--------------------------------------------------
+
+% For handout mode for printing
+\documentclass[handout]{beamer}[10pt] % for printout only
+
+%--------------------------------------------------
+
+% for theme
+%\usetheme[hideothersubsections]{FSUTheme}
+%\usetheme{Berkeley}
+\usetheme[minimal]{Pvamu}
+\setbeamercovered{transparent}
+
+%--------------------------------------------------
+
+% Set the asoect ratio
+%\documentclass[aspectratio=169]{beamer}[12pt] for 16:9 ratio
+
+%--------------------------------------------------
+
+% Small fonts in the subsection in toc (table of contents)
+\setbeamerfont{subsection in toc}{size=\small}
+
+%--------------------------------------------------
+
+% set captions in beamer template
+\setbeamertemplate{caption}[numbered]
+
+%--------------------------------------------------
+
+% libraries
+\usepackage{lmodern} % get rid of warnings
+\usepackage{caption} % improved spacing between figure and caption
+%\usepackage{authblk}
+
+%--------------------------------------------------
+
+% graphics 
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage[absolute,overlay]{textpos} % text position in image
+\usepackage{tikz} 
+\usetikzlibrary{positioning, fit, arrows.meta}
+\usetikzlibrary{3d,decorations.text,shapes.arrows,positioning,fit,backgrounds}
+\tikzset{pics/fake box/.style args={% #1=color, #2=x dimension, #3=y dimension, #4=z dimension
+		#1 with dimensions #2 and #3 and #4}{
+		code={
+			\draw[gray,ultra thin,fill=#1]  (0,0,0) coordinate(-front-bottom-left) to
+			++ (0,#3,0) coordinate(-front-top-right) --++
+			(#2,0,0) coordinate(-front-top-right) --++ (0,-#3,0) 
+			coordinate(-front-bottom-right) -- cycle;
+			\draw[gray,ultra thin,fill=#1] (0,#3,0)  --++ 
+			(0,0,#4) coordinate(-back-top-left) --++ (#2,0,0) 
+			coordinate(-back-top-right) --++ (0,0,-#4)  -- cycle;
+			\draw[gray,ultra thin,fill=#1!80!black] (#2,0,0) --++ (0,0,#4) coordinate(-back-bottom-right)
+			--++ (0,#3,0) --++ (0,0,-#4) -- cycle;
+			\path[gray,decorate,decoration={text effects along path,text={CONV}}] (#2/2,{2+(#3-2)/2},0) -- (#2/2,0,0);
+		}
+}}
+% from https://tex.stackexchange.com/a/52856/121799
+\tikzset{circle dotted/.style={dash pattern=on .05mm off 2mm,
+		line cap=round}}
+
+%--------------------------------------------------
+
+% table
+\usepackage{multirow}
+%\usepackage{tabularx}
+\usepackage{longtable,lscape}
+\usepackage{booktabs} % for better tables
+
+%--------------------------------------------------
+
+% for hyperlinks
+\usepackage{hyperref}
+
+%--------------------------------------------------
+
+% for maths
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{gensymb}
+%\usepackage{caption}
+%\captionsetup{font=footnotesize}
+
+%--------------------------------------------------
+
+%\usepackage{ltablex}
+
+%--------------------------------------------------
+
+% perform arithmetic on the arguments
+\usepackage{calc}
+
+%--------------------------------------------------
+
+% set language
+\usepackage[english]{babel}
+
+%--------------------------------------------------
+
+% references
+\usepackage[numbers,sort&compress]{natbib}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+%--------------------------------------------------
+
+% write pseudo code
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+%--------------------------------------------------
+
+% justify text
+\usepackage{ragged2e}
+\usepackage{etoolbox}
+
+%--------------------------------------------------
+
+% Roman numbers
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%--------------------------------------------------
+
+% add page numner 
+\addtobeamertemplate{navigation symbols}{}{%
+	\usebeamerfont{footline}%
+	\usebeamercolor[fg]{footline}%
+	\hspace{1em}%
+	\insertframenumber/\inserttotalframenumber
+}
+
+
+
+% autoreference
+\newcommand*{\Appendixautorefname}{Appendix}
+\newcommand*{\Figureautorefname}{Figure}
+\newcommand*{\Tableautorefname}{Table}
+\newcommand*{\Equationautorefname}{Equation}
+\newcommand*{\Frameautorefname}{Frame}
+
+\addto\extrasenglish{%
+	\def\Figureautorefname{Figure}%
+		\def\Tableautorefname{Table}%
+}
+
+\makeatletter
+
+%--------------------------------------------------
+
+\newcommand{\trickbeamer}{%
+	\advance\beamer@slideinframe by-1%
+}%
+\makeatother
+
+
+\def\BState{\State\hskip-\ALG@thistlm}
+%\makeatother
+
+%\setlength{\parskip}{\baselineskip}%
+%\setlength{\parindent}{0pt}%
+
+
+% table of contents
+\AtBeginSection[]
+{
+	\begin{frame}
+	\frametitle{Table of Contents}
+	\tableofcontents[]
+%	\tableofcontents[currentsection]
+	%%\pause
+\end{frame}
+}
+
+%--------------------------------------------------
+
+% title 
+\title{\uppercase{Smart Cities : A Brief Review}}
+
+% subtitle
+\subtitle{ Graduate Seminar \RNum{2}}
+
+% author
+\author{Ishan Bharatbhai Khatri} %
+
+% institute
+\institute{Dept. of Electrical and Computer Engineering, \\
+	Prairie View A\&M University, Prairie View, Texas 77446}
+
+% date
+\date{}
+
+
+% set logo
+\logo{
+%	\includegraphics[width=.7cm,height=.7cm,keepaspectratio]{LogoCredit.jpg}%
+%  \hspace{\dimexpr\paperwidth-1.5cm-5pt}%
+	\includegraphics[width=.7cm,height=.7cm,keepaspectratio]{pvamulogo}%
+}
+
+
+\begin{document}
+%\input{zoom.tex}
+\input{title.tex}
+\input{acknowledgment.tex}
+\input{chapter/chapter1.tex}
+\input{chapter/chapter2.tex}
+\input{chapter/chapter3.tex}
+\input{conclusion.tex}
+\input{questions.tex}
+\begin{frame}[allowframebreaks]{Bibliography}
+	\bibliographystyle{ieeetr}
+	\bibliography{references}
+\end{frame}
+
+\end{document}
