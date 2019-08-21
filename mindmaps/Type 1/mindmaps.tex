@@ -1,0 +1,77 @@
+\documentclass[border=10pt,multi,tikz]{standalone}
+\usetikzlibrary{shapes.geometric}
+\begin{document}
+
+\tikzset{
+treenode/.style = {draw,ellipse, align=left,
+                 top color=white, bottom color=blue!20},
+root/.style     = {treenode, font=\large, bottom color=white},
+env/.style      = {treenode, font=\ttfamily\normalsize},
+dummy/.style    = {circle,draw}
+}
+\begin{tikzpicture}
+[  
+ level 1/.style={ edge from parent path={
+        (\tikzparentnode) to[out=0, in=180] (\tikzchildnode)
+        -- (\tikzchildnode)
+    },},
+level 2/.style={minimum width=200pt, edge from parent path={
+        (\tikzparentnode.east) to[out=0, in=180] (\tikzchildnode.south west)
+        -- (\tikzchildnode.south east)
+    },
+    sibling distance=0.6cm},
+level 1/.append style={level distance=4.5cm},
+level 2/.append style={level distance=6.5cm},
+%edge from parent/.style = {draw, -latex},
+%every node/.style       = {font=\footnotesize},
+sloped,
+     ]
+
+ \node [root] {\textit{aiberry}}
+[grow=right]
+  child [sibling distance=4.0cm] { node{Clustering} 
+            child { node  {k-Means}}
+            child { node  {k-Medians}}
+            child { node  {Expectation Maximisation (EM)}}
+            child { node  {Hierarchical Clustering}}
+           }
+ child [sibling distance=5.cm] { node  {Regularisation}
+            child { node  {Ridge Regression}}
+            child { node  {Least Abs. Shr. and Sel. Ope. (LASSO)}}
+            child { node  {Elastic Net}}
+            child { node  {Least-Angle Regression (LARS)}}
+           };               
+\tikzset{
+level 1/.style={ edge from parent path={
+        (\tikzparentnode) to[out=180, in=0] (\tikzchildnode)
+        -- (\tikzchildnode)
+    }},
+level 2/.style={minimum width=200pt,align=left, edge from parent path={
+        (\tikzparentnode) to[out=180, in=0] (\tikzchildnode.south east)
+        -- (\tikzchildnode.south west)
+    },
+    sibling distance=0.6cm},
+level 1/.append style={level distance=4.5cm},
+level 2/.append style={level distance=5.5cm},
+%edge from parent/.style = {draw, -latex},
+%every node/.style       = {font=\footnotesize},
+sloped,
+     }
+  \node [root]{\textit{aiberry}}
+ [grow=left]
+ child [sibling distance=3.1cm]{ node{Deep Learning} 
+            child { node  {Deep Boltzmann Machine (DBM)}}
+            child { node  {Deep Belief Network (DBN)}}
+            child { node  {Convolutional Neural Network (CNN)}}
+            child { node  {Stacked Auto-Encoders}}
+           }
+   child [sibling distance=3.1cm]{ node  {Regression}
+            child { node  {Linear}}
+            child { node  {Ordinary Least Squares}}
+            child { node  {Logistic}}
+            child { node  {Stepwise}}
+            child { node  {Locally Esti.Scatt. Smoo.(LOESS)}}
+            child { node  {Multi. Ada. Reg.Splines (MARS)}} 
+            };
+ \end{tikzpicture}
+\end{document}
